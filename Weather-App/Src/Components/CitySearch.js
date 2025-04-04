@@ -1,18 +1,18 @@
 import { ActivityIndicator, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React,{useState,  useEffect} from 'react'
 
-//This component allows the user to search for city 
 export default function CitySearch({onCitySelect}) {
 
-  //this use state is used to track the text input by a user
+
+  
+ 
+  
   const[searchText, setSearchText]= useState('')
 
-  //this use state is used to store all the cities we will get when we make an API calls
-
+ 
   const [cities, setCities]=useState([])
 
-  //loading states thiswill be called when the data being fetched is loading...this allows us to make use of the Activity indicator
-  // inital start is false, bacause we don not want it to be loading
+
   const[loading, setLoading]=useState(false)
 
 
@@ -20,11 +20,10 @@ export default function CitySearch({onCitySelect}) {
     setSearchText(text)
   }
 
-// creating a function that will bring out a list of cities that will match the city the user search
 
 
     const searchCities = async(text)=>{
-      if(text.legnth < 3){
+      if(text.length < 3){
         setCities([])
         return
       }
@@ -33,8 +32,8 @@ export default function CitySearch({onCitySelect}) {
       try {
         const response = await  fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=${text}&limit=10`,{
           headers:{
-            'x-RapidAPI-Key': '55cdab37e8msh5ec0cbf3a901877p13889djsn1a96586e38a7',
-            'x-RapidAPI-Host':'wft-geo-db.p.rapidapi.com'
+            'X-RapidAPI-Key': '55cdab37e8msh5ec0cbf3a901877p13889djsn1a96586e38a7',
+            'X-RapidAPI-Host':'wft-geo-db.p.rapidapi.com'
           }
         })
 
@@ -46,7 +45,7 @@ export default function CitySearch({onCitySelect}) {
         }else{
           setCities([
             'New York','London', 'Tokyo','Paris', 'Sydney', 'Berlin', 'Moscow','Dubai', 'Singapore','Barcelona'
-          ].filter(city=>city.toLowerCase().includes(text.toLowerCase)()))
+          ].filter(city=>city.toLowerCase().includes(text.toLowerCase())))
         }
       } 
       catch(error){
@@ -77,7 +76,7 @@ export default function CitySearch({onCitySelect}) {
 
   return (
     <View style={styles.container}>
-      <Text style ={styles.label}>Enter City Name</Text>
+      <Text style ={styles.label}>Enter City Name: </Text>
       <TextInput
       style={styles.input}
       placeholder='Type a city name...'
@@ -115,23 +114,24 @@ export default function CitySearch({onCitySelect}) {
 
 const styles = StyleSheet.create({
   container:{
-    marginBottom: 20,
+   
+    marginBottom: 30,
   },
 
   label:{
     fontSize: 16,
     marginBottom: 8,
-    fontWeight: '700',
+    fontWeight: 'bold',
     color:'#333',
   },
 
   input: {
-    borderWidth: 1,
+    borderWidth: 3,
     borderColor: '#ccc',
     borderRadius: 8,
     padding: 12,
     fontSize: 14,
-    backgroundColor:'#fff'
+    backgroundColor:'#fff',
   },
 
   loadingIndicator:{
@@ -141,10 +141,10 @@ const styles = StyleSheet.create({
   cityList:{
     marginTop: 8,
     maxHeight: 200,
-    borderWidth: 1,
-    borderColor: 'grey',
+    borderWidth: 2,
+    borderColor: '#ccc',
     borderRadius: 8,
-    backgroundColor:'white'
+    backgroundColor:'#fff'
   },
 
   cityItem :{

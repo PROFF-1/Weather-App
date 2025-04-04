@@ -1,37 +1,39 @@
-import { View, Text } from 'react-native'
+import { View, Text,StyleSheet,Image } from 'react-native'
 import React from 'react'
 
-export default function WeatherInfo(WeatherData) {
+export default function WeatherInfo({weatherData}) {
 
-  const WeatherData={
-    name,
-    main:{ temp, humidity},
-    wather,
-    wind:{speed}
-  }
+  if (!weatherData) return null;
 
-  const weatherCondition = weather[0]
+
+        const {
+          name,
+          main: { temp, humidity},
+          weather,
+          wind: { speed}
+              } = weatherData
+  const weatherCondition = weather[0];
 
   const iconUrl = `https://openweathermap.org/img/wn/${weatherCondition.icon}@2x.png`
   return (
-    <View style={StyleSheet.container}>
-      <Text style={StyleSheet.cityName}>{name}</Text>
+    <View style={styles.container}>
+      <Text style={styles.cityName}>{name}</Text>
 
-      <View style={styles.tempContanier}>
+      <View style={styles.tempContainer}>
         <Image source={{uri: iconUrl}}
-         styles={styles.weatherIcon}
+         style={styles.weatherIcon}
         />
-      <Text style={styles.Temperature}>{Math.round(temp)}</Text>
+      <Text style={styles.temperature}>{Math.round(temp)}</Text>
       </View>
 
       <Text style={styles.description}>{weatherCondition.description}</Text>
 
       <View style={styles.detailsContainer}>
-        <View style={styles.detailsBox}>
+        <View style={styles.detailBox}>
           <Text style={styles.detailLabel}>Humidity</Text>
           <Text style= {styles.detailValue}>{humidity}</Text>
         </View>
-        <View style={styles.detailsBox}>
+        <View style={styles.detailBox}>
           <Text style={styles.detailLabel}>Wind</Text>
           <Text style= {styles.detailValue}>{speed} m/s</Text>
         </View>
@@ -46,13 +48,12 @@ const styles =StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 16,
     padding: 20,
-    alignItems: 'center',
-    // Adding simple shadow
+    alignItems: 'center', 
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 3, // for Android
+    elevation: 3, 
     margin: 10,
   },
   cityName: {
